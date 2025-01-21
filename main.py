@@ -7,7 +7,7 @@ GITHUB_TOKEN = os.getenv('AUTO_PUSH_GITHUB_TOKEN')  # Load token from environmen
 REPO_URL = 'https://github.com/AwaisSabit/repository.git'
 LOCAL_REPO_PATH = r"C:\Users\Awais Sabit\Desktop\projects\AutoGithub"
 COMMIT_MESSAGE = 'Automated commit and push'
-
+# AAA
 def push_to_github():
     try:
         # Initialize Git repository
