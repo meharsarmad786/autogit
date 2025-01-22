@@ -4,15 +4,15 @@ from github import Github
 
 # Set up environment variables or constants
 GITHUB_TOKEN = os.getenv('AUTO_PUSH_GITHUB_TOKEN')  # Load token from environment
-REPO_URL = 'https://github.com/AwaisSabit/Auto_Github1.git'
-LOCAL_REPO_PATH = r"C:\Users\Awais Sabit\Desktop\projects\AutoGithub"
+REPO_URL = 'https://github.com/meharsarmad786/autogit.git'
+LOCAL_REPO_PATH = '/Users/app/Downloads/AutoGithub'  # Use the full path here
 COMMIT_MESSAGE = 'Automated commit and push'
 
 def push_to_github():
     try:
-        # Initialize Git repository
+        # Initialize Git repository if not already initialized
         if not os.path.exists(os.path.join(LOCAL_REPO_PATH, '.git')):
-            print("Repository not initialized. Cloning...")
+            print(f"Repository not initialized at {LOCAL_REPO_PATH}. Cloning...")
             git.Repo.clone_from(REPO_URL, LOCAL_REPO_PATH)
         
         repo = git.Repo(LOCAL_REPO_PATH)
@@ -21,14 +21,13 @@ def push_to_github():
         origin = repo.remote(name='origin')
         origin.pull()
 
-        # Check for changes
+        # Check for changes and commit them
         if repo.is_dirty(untracked_files=True):
-            # Stage all changes
-            repo.git.add(A=True)
-            # Commit changes
+            print("Changes detected. Staging and committing...")
+            repo.git.add(A=True)  # Add all changes (including untracked files)
             repo.index.commit(COMMIT_MESSAGE)
-            
-            # Push changes
+
+            # Push changes to GitHub
             origin.push()
             print("Changes pushed to GitHub successfully.")
         else:
